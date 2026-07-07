@@ -6,6 +6,11 @@ import os
 
 DEBUG = False
 
+# Trust the X-Forwarded-Proto header from the Nginx reverse proxy so
+# Django knows the original request was HTTPS (avoids a redirect loop
+# with SECURE_SSL_REDIRECT below).
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 # Security settings
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
