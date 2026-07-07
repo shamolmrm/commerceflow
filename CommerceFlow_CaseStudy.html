@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CommerceFlow — Project Case Study</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f8fafc;
+    color: #1e293b;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  /* ── PAGE WRAPPER ── */
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    box-shadow: 0 0 40px rgba(0,0,0,.08);
+  }
+
+  /* ── COVER ── */
+  .cover {
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #4f46e5 70%, #7c3aed 100%);
+    color: white;
+    padding: 60px 56px 50px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.06);
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -60px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.04);
+  }
+  .cover-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .cover-logo {
+    width: 52px; height: 52px;
+    background: rgba(255,255,255,.2);
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; font-weight: 800;
+    margin-bottom: 24px;
+  }
+  .cover h1 {
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -.02em;
+    line-height: 1.1;
+    margin-bottom: 14px;
+  }
+  .cover h1 span { color: #a5b4fc; }
+  .cover p {
+    font-size: 15px;
+    color: rgba(255,255,255,.75);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 36px;
+  }
+  .cover-meta {
+    display: flex;
+    gap: 32px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255,255,255,.15);
+  }
+  .cover-meta-item { }
+  .cover-meta-item .label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: rgba(255,255,255,.5);
+    margin-bottom: 4px;
+  }
+  .cover-meta-item .value {
+    font-size: 13px;
+    font-weight: 600;
+    color: #e0e7ff;
+  }
+
+  /* ── BODY ── */
+  .body { padding: 48px 56px; }
+
+  /* ── SECTION ── */
+  .section { margin-bottom: 44px; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #f1f5f9;
+  }
+  .section-icon {
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #0f172a;
+  }
+  .section-header .count {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 600;
+    color: #6366f1;
+    background: #eef2ff;
+    padding: 3px 10px;
+    border-radius: 100px;
+  }
+
+  /* ── TECH GRID ── */
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .tech-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 14px 16px;
+    transition: box-shadow .2s;
+  }
+  .tech-card .tech-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 3px;
+  }
+  .tech-card .tech-version {
+    font-size: 10px;
+    font-weight: 500;
+    color: #94a3b8;
+    font-family: 'Fira Code', monospace;
+    margin-bottom: 6px;
+  }
+  .tech-card .tech-desc {
+    font-size: 11px;
+    color: #64748b;
+    line-height: 1.5;
+  }
+  .tech-card.highlight {
+    background: linear-gradient(135deg, #eef2ff, #f5f3ff);
+    border-color: #c7d2fe;
+  }
+
+  /* ── APP TABLE ── */
+  .app-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  .app-table thead tr {
+    background: #f8fafc;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  .app-table th {
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: #64748b;
+  }
+  .app-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: top;
+  }
+  .app-table tr:last-child td { border-bottom: none; }
+  .app-table tr:hover td { background: #f8fafc; }
+  .app-name {
+    font-weight: 700;
+    color: #312e81;
+    font-family: 'Fira Code', monospace;
+    font-size: 12px;
+  }
+  .app-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+
+  /* ── API TABLE ── */
+  .api-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  .api-table thead tr {
+    background: #0f172a;
+  }
+  .api-table th {
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: #94a3b8;
+  }
+  .api-table td {
+    padding: 9px 14px;
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: top;
+  }
+  .api-table tr:last-child td { border-bottom: none; }
+  .api-table tr:hover td { background: #f8fafc; }
+  .method {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    font-family: 'Fira Code', monospace;
+    letter-spacing: .03em;
+  }
+  .method.GET    { background: #dcfce7; color: #15803d; }
+  .method.POST   { background: #dbeafe; color: #1d4ed8; }
+  .method.PATCH  { background: #fef3c7; color: #b45309; }
+  .method.DELETE { background: #fee2e2; color: #b91c1c; }
+
+  .endpoint {
+    font-family: 'Fira Code', monospace;
+    font-size: 11px;
+    color: #4f46e5;
+    font-weight: 500;
+  }
+
+  /* ── DB TABLE ── */
+  .db-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .db-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .db-card-header {
+    background: #f8fafc;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .db-card-header .table-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: #0f172a;
+    font-family: 'Fira Code', monospace;
+  }
+  .db-card-header .row-count {
+    margin-left: auto;
+    font-size: 10px;
+    color: #64748b;
+    background: #e2e8f0;
+    padding: 2px 8px;
+    border-radius: 100px;
+  }
+  .db-fields {
+    padding: 10px 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .db-field {
+    font-size: 10px;
+    font-family: 'Fira Code', monospace;
+    color: #475569;
+    background: #f1f5f9;
+    padding: 2px 7px;
+    border-radius: 4px;
+  }
+  .db-field.pk { background: #dbeafe; color: #1d4ed8; font-weight: 700; }
+  .db-field.fk { background: #fef3c7; color: #92400e; }
+
+  /* ── FLOW DIAGRAM ── */
+  .flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 28px 20px;
+    flex-wrap: wrap;
+  }
+  .flow-box {
+    text-align: center;
+    padding: 14px 18px;
+    border-radius: 12px;
+    min-width: 110px;
+  }
+  .flow-box .icon { font-size: 24px; margin-bottom: 6px; }
+  .flow-box .title { font-size: 12px; font-weight: 700; color: #0f172a; }
+  .flow-box .sub { font-size: 10px; color: #64748b; margin-top: 2px; }
+  .flow-arrow {
+    font-size: 18px;
+    color: #cbd5e1;
+    padding: 0 4px;
+  }
+  .flow-box.blue  { background: #dbeafe; }
+  .flow-box.indigo{ background: #e0e7ff; }
+  .flow-box.green { background: #dcfce7; }
+  .flow-box.amber { background: #fef3c7; }
+  .flow-box.purple{ background: #f5f3ff; }
+
+  /* ── SEED DATA ── */
+  .seed-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  .seed-card {
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+  .seed-card .num {
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .seed-card .lbl {
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  /* ── BADGE ── */
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .badge.green  { background: #dcfce7; color: #15803d; }
+  .badge.blue   { background: #dbeafe; color: #1d4ed8; }
+  .badge.purple { background: #f3e8ff; color: #7e22ce; }
+  .badge.amber  { background: #fef3c7; color: #92400e; }
+  .badge.red    { background: #fee2e2; color: #b91c1c; }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: #0f172a;
+    color: #94a3b8;
+    padding: 24px 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11px;
+  }
+  .footer strong { color: #e2e8f0; }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: white; font-size: 12px; }
+    .page { box-shadow: none; }
+    .section { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- COVER -->
+  <div class="cover">
+    <div class="cover-badge">📄 Project Case Study &nbsp;·&nbsp; 2026</div>
+    <div class="cover-logo">CF</div>
+    <h1>Commerce<span>Flow</span></h1>
+    <p>A full-stack e-commerce platform built with Next.js 15 App Router and Django 5 REST Framework — featuring a complete admin dashboard, JWT authentication, real-time inventory, payment integration, and analytics.</p>
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <div class="label">Frontend</div>
+        <div class="value">Next.js 15 + React 19</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="label">Backend</div>
+        <div class="value">Django 5 + DRF</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="label">Database</div>
+        <div class="value">SQLite / PostgreSQL</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="label">API</div>
+        <div class="value">REST + JWT + Swagger</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="label">Apps</div>
+        <div class="value">15 Django Apps</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <!-- ARCHITECTURE FLOW -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon" style="background:#eef2ff">🏗️</div>
+        <h2>System Architecture</h2>
+      </div>
+      <div class="flow">
+        <div class="flow-box blue">
+          <div class="icon">🌐</div>
+          <div class="title">Browser</div>
+          <div class="sub">User / Admin</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box indigo">
+          <div class="icon">⚡</div>
+          <div class="title">Next.js 15</div>
+          <div class="sub">:3000 · SSR + CSR</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box purple">
+          <div class="icon">🔌</div>
+          <div class="title">Axios + RQ</div>
+          <div class="sub">HTTP Client</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box green">
+          <div class="icon">🐍</div>
+          <div class="title">Django DRF</div>
+          <div class="sub">:8000 · REST API</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box amber">
+          <div class="icon">🗄️</div>
+          <div class="title">Database</div>
+          <div class="sub">SQLite / Postgres</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FRONTEND STACK -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon" style="background:#dbeafe">⚛️</div>
+        <h2>Frontend Stack</h2>
+        <span class="count">18 packages</span>
+      </div>
+      <div class="tech-grid">
+
+        <div class="tech-card highlight">
+          <div class="tech-name">Next.js 15</div>
+          <div class="tech-version">v15.3.3</div>
+          <div class="tech-desc">App Router, Server & Client Components, SSR, dynamic routing</div>
+        </div>
+
+        <div class="tech-card highlight">
+          <div class="tech-name">React 19</div>
+          <div class="tech-version">v19.0.0</div>
+          <div class="tech-desc">Latest React with concurrent features and new hooks</div>
+        </div>
+
+        <div class="tech-card highlight">
+          <div class="tech-name">TypeScript 5.6</div>
+          <div class="tech-version">v5.6.3</div>
+          <div class="tech-desc">Full type safety across frontend codebase</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">Tailwind CSS</div>
+          <div class="tech-version">v3.4.15</div>
+          <div class="tech-desc">Utility-first CSS framework, custom design tokens</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">Redux Toolkit</div>
+          <div class="tech-version">v2.3.0</div>
+          <div class="tech-desc">Global state: auth, cart. redux-persist for localStorage</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">TanStack Query v5</div>
+          <div class="tech-version">v5.59.20</div>
+          <div class="tech-desc">Server state, caching, background refresh, pagination</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">Axios</div>
+          <div class="tech-version">v1.7.7</div>
+          <div class="tech-desc">HTTP client with interceptors for JWT token injection</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">React Hook Form</div>
+          <div class="tech-version">v7.53.2</div>
+          <div class="tech-desc">Performant forms with Zod schema validation</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">Zod</div>
+          <div class="tech-version">v3.23.8</div>
+          <div class="tech-desc">TypeScript-first schema validation for all forms</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">Recharts</div>
+          <div class="tech-version">v2.13.3</div>
+          <div class="tech-desc">Area charts, bar charts for admin analytics dashboard</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">Swiper</div>
+          <div class="tech-version">v11.1.14</div>
+          <div class="tech-desc">Touch carousel for hero slider, flash sale products</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">Radix UI</div>
+          <div class="tech-version">v2.x</div>
+          <div class="tech-desc">Accessible headless UI — dialog, dropdown, tabs, accordion</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">Stripe.js</div>
+          <div class="tech-version">v4.9.0</div>
+          <div class="tech-desc">Frontend payment element for card payments</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">Framer Motion</div>
+          <div class="tech-version">v11.11.11</div>
+          <div class="tech-desc">Page animations (CSS transitions preferred for SSR safety)</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">Lucide React</div>
+          <div class="tech-version">v0.460.0</div>
+          <div class="tech-desc">500+ consistent SVG icons throughout the UI</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">React Hot Toast</div>
+          <div class="tech-version">v2.4.1</div>
+          <div class="tech-desc">Success/error toast notifications</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">date-fns</div>
+          <div class="tech-version">v4.1.0</div>
+          <div class="tech-desc">Date formatting for orders, reports, coupons</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">Sharp</div>
+          <div class="tech-version">v0.33.5</div>
+          <div class="tech-desc">Next.js image optimization on server</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- BACKEND STACK -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon" style="background:#dcfce7">🐍</div>
+        <h2>Backend Stack</h2>
+        <span class="count">20+ packages</span>
+      </div>
+      <div class="tech-grid">
+
+        <div class="tech-card highlight">
+          <div class="tech-name">Django 5.0.6</div>
+          <div class="tech-version">v5.0.6</div>
+          <div class="tech-desc">Core web framework, ORM, admin, middleware, signals</div>
+        </div>
+
+        <div class="tech-card highlight">
+          <div class="tech-name">DRF</div>
+          <div class="tech-version">v3.15.2</div>
+          <div class="tech-desc">Django REST Framework — serializers, viewsets, routers</div>
+        </div>
+
+        <div class="tech-card highlight">
+          <div class="tech-name">SimpleJWT</div>
+          <div class="tech-version">v5.3.1</div>
+          <div class="tech-desc">Access + Refresh token authentication</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">drf-spectacular</div>
+          <div class="tech-version">v0.27.2</div>
+          <div class="tech-desc">Auto Swagger / OpenAPI 3.0 docs at /api/docs/</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">django-filter</div>
+          <div class="tech-version">v24.3</div>
+          <div class="tech-desc">Advanced filtering for products, orders, inventory</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">django-cors-headers</div>
+          <div class="tech-version">v4.4.0</div>
+          <div class="tech-desc">CORS policy for frontend-backend communication</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">Celery + Redis</div>
+          <div class="tech-version">v5.4.0</div>
+          <div class="tech-desc">Async task queue — emails, notifications, reports</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">Stripe SDK</div>
+          <div class="tech-version">v10.5.0</div>
+          <div class="tech-desc">Payment intents, webhooks, refunds</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">PayPal SDK</div>
+          <div class="tech-version">v1.13.3</div>
+          <div class="tech-desc">Alternative payment gateway integration</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">ReportLab</div>
+          <div class="tech-version">v4.2.2</div>
+          <div class="tech-desc">PDF invoice generation for orders</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">OpenPyXL</div>
+          <div class="tech-version">v3.1.5</div>
+          <div class="tech-desc">Excel export for reports and product data</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">Pillow</div>
+          <div class="tech-version">v10.4.0</div>
+          <div class="tech-desc">Image processing and thumbnail generation</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">django-storages + boto3</div>
+          <div class="tech-version">v1.14.4</div>
+          <div class="tech-desc">AWS S3 cloud storage for media files</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">Gunicorn</div>
+          <div class="tech-version">v22.0.0</div>
+          <div class="tech-desc">Production WSGI server</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">WhiteNoise</div>
+          <div class="tech-version">v6.7.0</div>
+          <div class="tech-desc">Static file serving in production</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">django-ratelimit</div>
+          <div class="tech-version">v4.1.0</div>
+          <div class="tech-desc">API rate limiting for auth endpoints</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">psycopg2</div>
+          <div class="tech-version">v2.9.9</div>
+          <div class="tech-desc">PostgreSQL adapter (production-ready)</div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-name">python-slugify</div>
+          <div class="tech-version">v8.0.4</div>
+          <div class="tech-desc">Auto slug generation for products, categories, brands</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- DATABASE -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon" style="background:#fef3c7">🗄️</div>
+        <h2>Database — Django ORM Models</h2>
+        <span class="count">15 tables</span>
+      </div>
+      <div class="db-grid">
+
+        <div class="db-card">
+          <div class="db-card-header">
+            <span class="table-name">users_user</span>
+            <span class="row-count">103 rows</span>
+          </div>
+          <div class="db-fields">
+            <span class="db-field pk">id</span>
+            <span class="db-field">email</span>
+            <span class="db-field">first_name</span>
+            <span class="db-field">last_name</span>
+            <span class="db-field">role</span>
+            <span class="db-field">phone</span>
+            <span class="db-field">is_active</span>
+            <span class="db-field">is_verified</span>
+            <span class="db-field">avatar_url</span>
+            <span class="db-field">date_joined</span>
+          </div>
+        </div>
+
+        <div class="db-card">
+          <div class="db-card-header">
+            <span class="table-name">products_product</span>
+            <span class="row-count">222 rows</span>
+          </div>
+          <div class="db-fields">
+            <span class="db-field pk">id</span>
+            <span class="db-field">name</span>
+            <span class="db-field">slug</span>
+            <span class="db-field">sku</span>
+            <span class="db-field">price</span>
+            <span class="db-field">sale_price</span>
+            <span class="db-field fk">category_id</span>
+            <span class="db-field fk">brand_id</span>
+            <span class="db-field">is_active</span>
+            <span class="db-field">is_featured</span>
+            <span class="db-field">rating</span>
+          </div>
+        </div>
+
+        <div class="db-card">
+          <div class="db-card-header">
+            <span class="table-name">orders_order</span>
+            <span class="row-count">214 rows</span>
+          </div>
+          <div class="db-fields">
+            <span class="db-field pk">id</span>
+            <span class="db-field">order_number</span>
+            <span class="db-field fk">user_id</span>
+            <span class="db-field">status</span>
+            <span class="db-field">payment_status</span>
+            <span class="db-field">total</span>
+            <span class="db-field">shipping_address</span>
+            <span class="db-field">created_at</span>
+          </div>
+        </div>
+
+        <div class="db-card">
+          <div class="db-card-header">
+            <span class="table-name">categories_category</span>
+            <span class="row-count">44 rows</span>
+          </div>
+          <div class="db-fields">
+            <span class="db-field pk">id</span>
+            <span class="db-field">name</span>
+            <span class="db-field">slug</span>
+            <span class="db-field fk">parent_id</span>
+            <span class="db-field">is_active</span>
+            <span class="db-field">sort_order</span>
+            <span class="db-field">description</span>
+          </div>
+        </div>
+
+        <div class="db-card">
+          <div class="db-card-header">
+            <span class="table-name">inventory_inventory</span>
+            <span class="row-count">444 rows</span>
+          </div>
+          <div class="db-fields">
+            <span class="db-field pk">id</span>
+            <span class="db-field fk">product_id</span>
+            <span class="db-field fk">warehouse_id</span>
+            <span class="db-field">quantity</span>
+            <span class="db-field">low_stock_threshold</span>
+            <span class="db-field">change_type</span>
+          </div>
+        </div>
+
+        <div class="db-card">
+          <div class="db-card-header">
+            <span class="table-name">payments_payment</span>
+            <span class="row-count">—</span>
+          </div>
+          <div class="db-fields">
+            <span class="db-field pk">id</span>
+            <span class="db-field fk">order_id</span>
+            <span class="db-field">provider</span>
+            <span class="db-field">amount</span>
+            <span class="db-field">status</span>
+            <span class="db-field">stripe_intent_id</span>
+            <span class="db-field">paypal_order_id</span>
+          </div>
+        </div>
+
+        <div class="db-card">
+          <div class="db-card-header">
+            <span class="table-name">reviews_review</span>
+            <span class="row-count">—</span>
+          </div>
+          <div class="db-fields">
+            <span class="db-field pk">id</span>
+            <span class="db-field fk">user_id</span>
+            <span class="db-field fk">product_id</span>
+            <span class="db-field">rating</span>
+            <span class="db-field">title</span>
+            <span class="db-field">body</span>
+            <span class="db-field">is_verified</span>
+          </div>
+        </div>
+
+        <div class="db-card">
+          <div class="db-card-header">
+            <span class="table-name">coupons_coupon</span>
+            <span class="row-count">10 rows</span>
+          </div>
+          <div class="db-fields">
+            <span class="db-field pk">id</span>
+            <span class="db-field">code</span>
+            <span class="db-field">type</span>
+            <span class="db-field">value</span>
+            <span class="db-field">min_order_amount</span>
+            <span class="db-field">max_uses</span>
+            <span class="db-field">used_count</span>
+            <span class="db-field">expiry</span>
+          </div>
+        </div>
+
+        <div class="db-card">
+          <div class="db-card-header">
+            <span class="table-name">wishlist_wishlist</span>
+            <span class="row-count">—</span>
+          </div>
+          <div class="db-fields">
+            <span class="db-field pk">id</span>
+            <span class="db-field fk">user_id</span>
+            <span class="db-field fk">product_id</span>
+            <span class="db-field">added_at</span>
+          </div>
+        </div>
+
+        <div class="db-card">
+          <div class="db-card-header">
+            <span class="table-name">warehouses_warehouse</span>
+            <span class="row-count">2 rows</span>
+          </div>
+          <div class="db-fields">
+            <span class="db-field pk">id</span>
+            <span class="db-field">name</span>
+            <span class="db-field">city</span>
+            <span class="db-field">country</span>
+            <span class="db-field">address</span>
+            <span class="db-field">is_active</span>
+          </div>
+        </div>
+
+        <div class="db-card">
+          <div class="db-card-header">
+            <span class="table-name">suppliers_supplier</span>
+            <span class="row-count">—</span>
+          </div>
+          <div class="db-fields">
+            <span class="db-field pk">id</span>
+            <span class="db-field">name</span>
+            <span class="db-field">contact_person</span>
+            <span class="db-field">email</span>
+            <span class="db-field">phone</span>
+            <span class="db-field">is_active</span>
+          </div>
+        </div>
+
+        <div class="db-card">
+          <div class="db-card-header">
+            <span class="table-name">brands_brand</span>
+            <span class="row-count">20 rows</span>
+          </div>
+          <div class="db-fields">
+            <span class="db-field pk">id</span>
+            <span class="db-field">name</span>
+            <span class="db-field">slug</span>
+            <span class="db-field">logo_url</span>
+            <span class="db-field">description</span>
+            <span class="db-field">is_active</span>
+          </div>
+        </div>
+
+      </div>
+      <p style="font-size:11px;color:#94a3b8;margin-top:10px;">
+        <span style="display:inline-block;background:#dbeafe;color:#1d4ed8;padding:1px 7px;border-radius:4px;font-family:'Fira Code',monospace;font-size:10px;font-weight:700;margin-right:4px;">PK</span> Primary Key &nbsp;&nbsp;
+        <span style="display:inline-block;background:#fef3c7;color:#92400e;padding:1px 7px;border-radius:4px;font-family:'Fira Code',monospace;font-size:10px;font-weight:700;margin-right:4px;">FK</span> Foreign Key
+      </p>
+    </div>
+
+    <!-- API ENDPOINTS -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon" style="background:#f3e8ff">🔌</div>
+        <h2>API Endpoints</h2>
+        <span class="count">Base: /api/v1/</span>
+      </div>
+      <table class="api-table">
+        <thead>
+          <tr>
+            <th style="width:70px">Method</th>
+            <th style="width:260px">Endpoint</th>
+            <th>Description</th>
+            <th style="width:80px">Auth</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Auth -->
+          <tr><td colspan="4" style="background:#f8fafc;padding:8px 14px;font-size:10px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.06em;">Authentication</td></tr>
+          <tr><td><span class="method POST">POST</span></td><td class="endpoint">/users/auth/login/</td><td>Email + password login → access & refresh tokens</td><td><span class="badge green">Public</span></td></tr>
+          <tr><td><span class="method POST">POST</span></td><td class="endpoint">/users/auth/register/</td><td>New customer registration</td><td><span class="badge green">Public</span></td></tr>
+          <tr><td><span class="method POST">POST</span></td><td class="endpoint">/users/auth/refresh/</td><td>Refresh access token using refresh token</td><td><span class="badge green">Public</span></td></tr>
+          <tr><td><span class="method POST">POST</span></td><td class="endpoint">/users/auth/logout/</td><td>Blacklist refresh token</td><td><span class="badge blue">JWT</span></td></tr>
+          <tr><td><span class="method GET">GET</span></td><td class="endpoint">/users/me/</td><td>Get current authenticated user profile</td><td><span class="badge blue">JWT</span></td></tr>
+
+          <!-- Products -->
+          <tr><td colspan="4" style="background:#f8fafc;padding:8px 14px;font-size:10px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.06em;">Products</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td class="endpoint">/products/</td><td>List products with filter, search, sort, pagination</td><td><span class="badge green">Public</span></td></tr>
+          <tr><td><span class="method POST">POST</span></td><td class="endpoint">/products/</td><td>Create new product</td><td><span class="badge amber">Admin</span></td></tr>
+          <tr><td><span class="method GET">GET</span></td><td class="endpoint">/products/{slug}/</td><td>Product detail by slug</td><td><span class="badge green">Public</span></td></tr>
+          <tr><td><span class="method PATCH">PATCH</span></td><td class="endpoint">/products/{id}/</td><td>Update product (by numeric ID)</td><td><span class="badge amber">Admin</span></td></tr>
+          <tr><td><span class="method DELETE">DELETE</span></td><td class="endpoint">/products/{id}/</td><td>Delete product</td><td><span class="badge amber">Admin</span></td></tr>
+          <tr><td><span class="method POST">POST</span></td><td class="endpoint">/products/bulk-upload/</td><td>Import products from CSV file</td><td><span class="badge amber">Admin</span></td></tr>
+          <tr><td><span class="method GET">GET</span></td><td class="endpoint">/products/export/</td><td>Export all products as CSV</td><td><span class="badge amber">Admin</span></td></tr>
+
+          <!-- Orders -->
+          <tr><td colspan="4" style="background:#f8fafc;padding:8px 14px;font-size:10px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.06em;">Orders</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td class="endpoint">/orders/</td><td>List orders (own for customer, all for admin)</td><td><span class="badge blue">JWT</span></td></tr>
+          <tr><td><span class="method POST">POST</span></td><td class="endpoint">/orders/</td><td>Place new order from cart</td><td><span class="badge blue">JWT</span></td></tr>
+          <tr><td><span class="method GET">GET</span></td><td class="endpoint">/orders/{id}/</td><td>Order detail (accepts ID or order_number)</td><td><span class="badge blue">JWT</span></td></tr>
+          <tr><td><span class="method PATCH">PATCH</span></td><td class="endpoint">/orders/{id}/update-status/</td><td>Update order status (pending→shipped etc.)</td><td><span class="badge amber">Admin</span></td></tr>
+          <tr><td><span class="method GET">GET</span></td><td class="endpoint">/orders/{id}/invoice/</td><td>Download PDF invoice for order</td><td><span class="badge blue">JWT</span></td></tr>
+
+          <!-- Cart, Payments -->
+          <tr><td colspan="4" style="background:#f8fafc;padding:8px 14px;font-size:10px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.06em;">Cart & Payments</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td class="endpoint">/cart/</td><td>Get current user's cart with items</td><td><span class="badge blue">JWT</span></td></tr>
+          <tr><td><span class="method POST">POST</span></td><td class="endpoint">/cart/add/</td><td>Add product to cart</td><td><span class="badge blue">JWT</span></td></tr>
+          <tr><td><span class="method DELETE">DELETE</span></td><td class="endpoint">/cart/remove/{id}/</td><td>Remove item from cart</td><td><span class="badge blue">JWT</span></td></tr>
+          <tr><td><span class="method POST">POST</span></td><td class="endpoint">/payments/stripe/create-intent/</td><td>Create Stripe PaymentIntent</td><td><span class="badge blue">JWT</span></td></tr>
+          <tr><td><span class="method POST">POST</span></td><td class="endpoint">/payments/stripe/webhook/</td><td>Stripe webhook for payment confirmation</td><td><span class="badge green">Public</span></td></tr>
+          <tr><td><span class="method POST">POST</span></td><td class="endpoint">/payments/paypal/create-order/</td><td>Create PayPal order</td><td><span class="badge blue">JWT</span></td></tr>
+          <tr><td><span class="method POST">POST</span></td><td class="endpoint">/coupons/validate/</td><td>Validate coupon code + calculate discount</td><td><span class="badge blue">JWT</span></td></tr>
+
+          <!-- Admin Reports -->
+          <tr><td colspan="4" style="background:#f8fafc;padding:8px 14px;font-size:10px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.06em;">Admin Analytics</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td class="endpoint">/admin/stats/overview/</td><td>Dashboard KPIs: revenue, orders, customers, products</td><td><span class="badge amber">Admin</span></td></tr>
+          <tr><td><span class="method GET">GET</span></td><td class="endpoint">/admin/reports/sales/?period=30d</td><td>Daily revenue + order data for charts</td><td><span class="badge amber">Admin</span></td></tr>
+          <tr><td><span class="method GET">GET</span></td><td class="endpoint">/admin/reports/top-products/</td><td>Top products by revenue and units sold</td><td><span class="badge amber">Admin</span></td></tr>
+          <tr><td><span class="method GET">GET</span></td><td class="endpoint">/admin/reports/customers/</td><td>New customers over time + top spenders</td><td><span class="badge amber">Admin</span></td></tr>
+          <tr><td><span class="method GET">GET</span></td><td class="endpoint">/admin/reports/export/?format=csv</td><td>Export report as CSV or Excel</td><td><span class="badge amber">Admin</span></td></tr>
+
+          <!-- Other -->
+          <tr><td colspan="4" style="background:#f8fafc;padding:8px 14px;font-size:10px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.06em;">Catalog & User Management</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td class="endpoint">/categories/</td><td>List all categories with nested children</td><td><span class="badge green">Public</span></td></tr>
+          <tr><td><span class="method GET">GET</span></td><td class="endpoint">/brands/</td><td>List all brands</td><td><span class="badge green">Public</span></td></tr>
+          <tr><td><span class="method GET">GET</span></td><td class="endpoint">/inventory/</td><td>Stock levels with warehouse info</td><td><span class="badge amber">Admin</span></td></tr>
+          <tr><td><span class="method GET">GET</span></td><td class="endpoint">/inventory/low-stock/</td><td>Products below low stock threshold</td><td><span class="badge amber">Admin</span></td></tr>
+          <tr><td><span class="method POST">POST</span></td><td class="endpoint">/inventory/{id}/adjust/</td><td>Adjust stock quantity (in / out / adjust)</td><td><span class="badge amber">Admin</span></td></tr>
+          <tr><td><span class="method GET">GET</span></td><td class="endpoint">/reviews/?product={slug}</td><td>Product reviews with pagination</td><td><span class="badge green">Public</span></td></tr>
+          <tr><td><span class="method GET">GET</span></td><td class="endpoint">/wishlist/</td><td>Get user's wishlist</td><td><span class="badge blue">JWT</span></td></tr>
+          <tr><td><span class="method GET">GET</span></td><td class="endpoint">/users/users/</td><td>All users list (admin)</td><td><span class="badge amber">Admin</span></td></tr>
+          <tr><td><span class="method PATCH">PATCH</span></td><td class="endpoint">/users/users/{id}/role/</td><td>Update user role</td><td><span class="badge amber">Admin</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SEEDED DATA -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon" style="background:#dcfce7">📊</div>
+        <h2>Seeded Demo Data</h2>
+      </div>
+      <div class="seed-grid">
+        <div class="seed-card" style="background:#eef2ff;">
+          <div class="num" style="color:#4f46e5;">222</div>
+          <div class="lbl" style="color:#4338ca;">Products</div>
+        </div>
+        <div class="seed-card" style="background:#dcfce7;">
+          <div class="num" style="color:#16a34a;">214</div>
+          <div class="lbl" style="color:#15803d;">Orders</div>
+        </div>
+        <div class="seed-card" style="background:#f5f3ff;">
+          <div class="num" style="color:#7c3aed;">103</div>
+          <div class="lbl" style="color:#6d28d9;">Users</div>
+        </div>
+        <div class="seed-card" style="background:#fef3c7;">
+          <div class="num" style="color:#d97706;">44</div>
+          <div class="lbl" style="color:#b45309;">Categories</div>
+        </div>
+        <div class="seed-card" style="background:#fee2e2;">
+          <div class="num" style="color:#dc2626;">$42k+</div>
+          <div class="lbl" style="color:#b91c1c;">Revenue</div>
+        </div>
+        <div class="seed-card" style="background:#e0f2fe;">
+          <div class="num" style="color:#0284c7;">20</div>
+          <div class="lbl" style="color:#0369a1;">Brands</div>
+        </div>
+        <div class="seed-card" style="background:#fce7f3;">
+          <div class="num" style="color:#db2777;">10</div>
+          <div class="lbl" style="color:#be185d;">Coupons</div>
+        </div>
+        <div class="seed-card" style="background:#f0fdf4;">
+          <div class="num" style="color:#16a34a;">2</div>
+          <div class="lbl" style="color:#15803d;">Warehouses</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KEY FEATURES -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon" style="background:#f0fdf4">✨</div>
+        <h2>Key Features</h2>
+      </div>
+      <div class="tech-grid">
+        <div class="tech-card">
+          <div class="tech-name">🔐 JWT Auth</div>
+          <div class="tech-desc">Access + Refresh tokens, role-based access (superadmin, manager, staff, customer)</div>
+        </div>
+        <div class="tech-card">
+          <div class="tech-name">🛒 Shopping Cart</div>
+          <div class="tech-desc">Redux-persisted cart, coupon validation, quantity management</div>
+        </div>
+        <div class="tech-card">
+          <div class="tech-name">💳 Payments</div>
+          <div class="tech-desc">Stripe Payment Intents + PayPal integration with webhooks</div>
+        </div>
+        <div class="tech-card">
+          <div class="tech-name">📦 Inventory</div>
+          <div class="tech-desc">Multi-warehouse stock tracking, low-stock alerts, adjustments</div>
+        </div>
+        <div class="tech-card">
+          <div class="tech-name">📊 Analytics</div>
+          <div class="tech-desc">Revenue charts, top products, customer reports, CSV/Excel export</div>
+        </div>
+        <div class="tech-card">
+          <div class="tech-name">🏷️ Mega Menu</div>
+          <div class="tech-desc">2-column category dropdown with parent/child hierarchy navigation</div>
+        </div>
+        <div class="tech-card">
+          <div class="tech-name">⚡ Flash Sale</div>
+          <div class="tech-desc">Auto countdown timer, Swiper carousel, sale_price filter</div>
+        </div>
+        <div class="tech-card">
+          <div class="tech-name">📄 PDF Invoice</div>
+          <div class="tech-desc">ReportLab-generated order invoices downloadable from admin</div>
+        </div>
+        <div class="tech-card">
+          <div class="tech-name">🔍 Swagger Docs</div>
+          <div class="tech-desc">Auto-generated OpenAPI 3.0 docs at localhost:8000/api/docs/</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOCAL SETUP -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon" style="background:#f1f5f9">🚀</div>
+        <h2>Local Development</h2>
+      </div>
+      <table class="app-table">
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>Command</th>
+            <th>URL</th>
+            <th>Credentials</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Backend (Django)</strong></td>
+            <td style="font-family:'Fira Code',monospace;font-size:11px;color:#4f46e5;">python manage.py runserver --settings=config.settings.local</td>
+            <td style="font-family:'Fira Code',monospace;font-size:11px;">localhost:8000</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><strong>Frontend (Next.js)</strong></td>
+            <td style="font-family:'Fira Code',monospace;font-size:11px;color:#4f46e5;">npm run dev</td>
+            <td style="font-family:'Fira Code',monospace;font-size:11px;">localhost:3000</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><strong>Admin Login</strong></td>
+            <td>—</td>
+            <td style="font-family:'Fira Code',monospace;font-size:11px;">localhost:3000/login</td>
+            <td style="font-family:'Fira Code',monospace;font-size:11px;">superadmin@supersoft.com / Admin@1234</td>
+          </tr>
+          <tr>
+            <td><strong>API Docs</strong></td>
+            <td>—</td>
+            <td style="font-family:'Fira Code',monospace;font-size:11px;">localhost:8000/api/docs/</td>
+            <td>Swagger UI</td>
+          </tr>
+          <tr>
+            <td><strong>Django Admin</strong></td>
+            <td>—</td>
+            <td style="font-family:'Fira Code',monospace;font-size:11px;">localhost:8000/django-admin/</td>
+            <td>Same credentials</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div><!-- /body -->
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div>
+      <strong>CommerceFlow</strong> — Full-Stack E-Commerce Platform
+    </div>
+    <div>
+      Next.js 15 · Django 5 · DRF · JWT · SQLite/PostgreSQL · Stripe · Redis
+    </div>
+    <div>2026</div>
+  </div>
+
+</div><!-- /page -->
+
+<div style="text-align:center;padding:20px;font-size:12px;color:#94a3b8;font-family:'Inter',sans-serif;">
+  🖨️ &nbsp;<strong>PDF বানাতে:</strong> Browser এ Ctrl+P → "Save as PDF" → Save
+</div>
+
+</body>
+</html>

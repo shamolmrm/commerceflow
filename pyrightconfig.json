@@ -1,0 +1,7 @@
+{
+  "pythonVersion": "3.14",
+  "extraPaths": ["backend"],
+  "exclude": ["**/migrations/**", "frontend/**", "node_modules/**"],
+  "reportMissingImports": "none",
+  "reportMissingModuleSource": "none"
+}

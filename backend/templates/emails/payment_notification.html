@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>Payment Notification</title></head>
+<body style="font-family: Arial, sans-serif; background: #f8fafc; margin: 0; padding: 20px;">
+<div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden;">
+  <div style="background: {% if success %}linear-gradient(135deg, #065f46, #059669){% else %}linear-gradient(135deg, #7f1d1d, #dc2626){% endif %}; padding: 40px; text-align: center;">
+    <h1 style="color: white; margin: 0;">{% if success %}Payment Successful ✓{% else %}Payment Failed ✗{% endif %}</h1>
+  </div>
+  <div style="padding: 40px;">
+    <p>Hello <strong>{{ user.full_name }}</strong>,</p>
+    {% if success %}
+    <p>Your payment of <strong>${{ order.total }}</strong> for order <strong>{{ order.order_number }}</strong> was successful.</p>
+    {% else %}
+    <p>Unfortunately, your payment for order <strong>{{ order.order_number }}</strong> failed. Please try again.</p>
+    {% endif %}
+  </div>
+  <div style="background: #f8fafc; padding: 20px; text-align: center;">
+    <p style="color: #9ca3af; font-size: 12px;">&copy; 2025 CommerceFlow. All rights reserved.</p>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>Order Status Update</title></head>
+<body style="font-family: Arial, sans-serif; background: #f8fafc; margin: 0; padding: 20px;">
+<div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden;">
+  <div style="background: linear-gradient(135deg, #0f172a, #6366f1); padding: 40px; text-align: center;">
+    <h1 style="color: white; margin: 0;">Order Status Update</h1>
+  </div>
+  <div style="padding: 40px;">
+    <p>Hello <strong>{{ user.full_name }}</strong>,</p>
+    <p>Your order <strong>{{ order.order_number }}</strong> status has been updated to:</p>
+    <div style="background: #f0f4ff; border-left: 4px solid #6366f1; padding: 16px; border-radius: 8px; margin: 20px 0;">
+      <strong style="font-size: 20px; color: #6366f1; text-transform: capitalize;">{{ new_status }}</strong>
+      <p style="margin: 8px 0 0; color: #6b7280;">{{ message }}</p>
+    </div>
+    <a href="{{ settings.FRONTEND_URL }}/dashboard/orders/{{ order.order_number }}"
+       style="display: inline-block; background: #6366f1; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; margin-top: 16px;">
+      View Order
+    </a>
+  </div>
+  <div style="background: #f8fafc; padding: 20px; text-align: center;">
+    <p style="color: #9ca3af; font-size: 12px;">&copy; 2025 CommerceFlow. All rights reserved.</p>
+  </div>
+</div>
+</body>
+</html>
