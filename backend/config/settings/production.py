@@ -31,24 +31,18 @@ LOGGING = {
         },
     },
     'handlers': {
-        'file': {
-            'level': 'ERROR',
-            'class': 'logging.FileHandler',
-            'filename': '/var/log/commerceflow/django.log',
-            'formatter': 'verbose',
-        },
         'console': {
             'class': 'logging.StreamHandler',
             'formatter': 'verbose',
         },
     },
     'root': {
-        'handlers': ['console', 'file'],
+        'handlers': ['console'],
         'level': 'WARNING',
     },
     'loggers': {
         'django': {
-            'handlers': ['console', 'file'],
+            'handlers': ['console'],
             'level': 'ERROR',
             'propagate': False,
         },
