@@ -7,7 +7,6 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN echo "=== .env.local check ===" && cat .env.local || echo "MISSING .env.local"
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_OPTIONS=--max-old-space-size=1024
 RUN npm run build

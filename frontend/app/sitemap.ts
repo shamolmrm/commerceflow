@@ -18,12 +18,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (res.ok) {
       const data = await res.json()
       const products = data.results || data
-      productRoutes = products.map((p: any) => ({
-        url: `${BASE_URL}/products/${p.slug}`,
-        lastModified: new Date(p.updated_at),
-        changeFrequency: 'daily' as const,
-        priority: 0.8,
-      }))
+      productRoutes = products.map((p: any) => {
+        const updated = new Date(p.updated_at)
+        return {
+          url: `${BASE_URL}/products/${p.slug}`,
+          lastModified: isNaN(updated.getTime()) ? new Date() : updated,
+          changeFrequency: 'daily' as const,
+          priority: 0.8,
+        }
+      })
     }
   } catch {
     // Build continues even if API is down
