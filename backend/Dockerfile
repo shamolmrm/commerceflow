@@ -15,7 +15,7 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 COPY . .
 
 RUN addgroup --system django && adduser --system --ingroup django django
-RUN chown -R django:django /app
+RUN mkdir -p /app/staticfiles /app/media && chown -R django:django /app
 USER django
 
 EXPOSE 8000
