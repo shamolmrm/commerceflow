@@ -94,7 +94,7 @@ export default function HeroSlider() {
             />
             <div className={`absolute inset-0 bg-gradient-to-r ${slide.gradient}`} />
 
-            <div className="relative h-full flex items-center">
+            <div className="relative h-full flex items-center pt-20 sm:pt-24">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
                 <div className="max-w-2xl">
                   <span className="inline-block badge bg-white/20 text-white border border-white/30 backdrop-blur-sm mb-4 text-sm">
