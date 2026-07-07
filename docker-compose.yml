@@ -1,7 +1,14 @@
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
 services:
   db:
     image: postgres:16-alpine
     restart: unless-stopped
+    logging: *default-logging
     environment:
       POSTGRES_DB: ${DB_NAME:-commerceflow}
       POSTGRES_USER: ${DB_USER:-postgres}
@@ -19,6 +26,7 @@ services:
   redis:
     image: redis:7-alpine
     restart: unless-stopped
+    logging: *default-logging
     command: redis-server --maxmemory 128mb --maxmemory-policy allkeys-lru
     volumes:
       - redis_data:/data
@@ -33,6 +41,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     restart: unless-stopped
+    logging: *default-logging
     env_file: ./backend/.env
     environment:
       DJANGO_SETTINGS_MODULE: config.settings.production
@@ -56,6 +65,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     restart: unless-stopped
+    logging: *default-logging
     env_file: ./backend/.env
     environment:
       DJANGO_SETTINGS_MODULE: config.settings.production
@@ -73,6 +83,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     restart: unless-stopped
+    logging: *default-logging
     env_file: ./backend/.env
     environment:
       DJANGO_SETTINGS_MODULE: config.settings.production
@@ -88,6 +99,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     restart: unless-stopped
+    logging: *default-logging
     env_file: ./frontend/.env.local
     ports:
       - "127.0.0.1:3010:3000"
