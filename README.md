@@ -2,6 +2,8 @@
 
 A production-ready full-stack e-commerce platform with inventory management, built with Django 5 + Next.js 15.
 
+**Live demo**: [commerceflow.supersoftltd.com](https://commerceflow.supersoftltd.com)
+
 ## Tech Stack
 
 | Layer | Technology |
